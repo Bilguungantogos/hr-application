@@ -25,6 +25,8 @@ interface IAuthContext {
   token: any;
   setUser: any;
   loading: boolean;
+  loginSignUpSwitch: boolean;
+  SetLoginSignUpSwitch: (loginSignUpSwitch: boolean) => void;
 }
 
 export const AuthContext = createContext({} as IAuthContext);
@@ -36,6 +38,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [loginuser, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState("");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [loginSignUpSwitch, SetLoginSignUpSwitch] = useState(false);
 
   const login = async (email: string, password: string) => {
     try {
@@ -135,6 +138,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         token,
         setUser,
         loading,
+        SetLoginSignUpSwitch,
+        loginSignUpSwitch,
       }}
     >
       {children}
