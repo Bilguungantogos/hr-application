@@ -21,6 +21,13 @@ const memberApplicationsSchema = new Schema(
       ref: "User",
       required: true,
     },
+    job: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Job",
+        required: true,
+      },
+    ],
     generalInfo: {
       firstName: {
         type: String,

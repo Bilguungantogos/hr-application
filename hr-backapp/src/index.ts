@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { errorHandler } from "./middleWare/errorHandler";
 import auth from "./router/auth";
+import job from "./router/job";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/auth", auth);
+app.use("/job", job);
 app.use(errorHandler);
 
 app.listen(8080, () => {

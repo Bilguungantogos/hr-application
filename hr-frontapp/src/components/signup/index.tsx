@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import { CgLogIn } from "react-icons/cg";
 
 const SignUp = () => {
-  const { loginuser, login, SetLoginSignUpSwitch, loginSignUpSwitch } =
-    useAuth();
+  const { signup, SetLoginSignUpSwitch, loginSignUpSwitch } = useAuth();
 
   const formik = useFormik({
-    onSubmit: ({ email, password }) => {},
+    onSubmit: ({ email, password }) => {
+      signup(email, password);
+    },
     initialValues: { email: "", password: "", rePassword: "" },
     validateOnChange: false,
     validateOnBlur: false,
@@ -37,6 +38,7 @@ const SignUp = () => {
         <Input
           id="current_password"
           name="password"
+          type="password"
           value={formik.values.password}
           onChange={formik.handleChange}
           className="bg-slate-400 border-none"
@@ -46,6 +48,7 @@ const SignUp = () => {
         <Input
           id="current_rePassword"
           name="rePassword"
+          type="password"
           value={formik.values.rePassword}
           onChange={formik.handleChange}
           className="bg-slate-400 border-none"

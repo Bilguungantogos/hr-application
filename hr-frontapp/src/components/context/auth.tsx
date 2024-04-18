@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const { data } = await myAxios.post("/user/login", {
+      const { data } = await myAxios.post("/auth/login", {
         userEmail: email,
         userPassword: password,
       });
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const signup = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const { data } = await myAxios.post("/user/signup", {
+      const { data } = await myAxios.post("/auth/signup", {
         email: email,
         password: password,
       });
