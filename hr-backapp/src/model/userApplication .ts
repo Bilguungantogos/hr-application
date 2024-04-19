@@ -74,10 +74,6 @@ const ApplicationsSchema = new Schema(
         required: true,
       },
     },
-    cv: {
-      type: String,
-      required: true,
-    },
     edits: {
       type: [editSubSchema],
       required: false,

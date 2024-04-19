@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [loginuser, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState("");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [loginSignUpSwitch, SetLoginSignUpSwitch] = useState(false);
+  const [loginSignUpSwitch, SetLoginSignUpSwitch] = useState(true);
 
   const login = async (email: string, password: string) => {
     try {
@@ -108,6 +108,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       if (user && token) {
         setUser(JSON.parse(user));
         setToken(JSON.parse(token));
+        console.log(user);
       }
     }
   };

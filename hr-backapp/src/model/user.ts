@@ -8,6 +8,7 @@ const userSchema = new Schema(
       unique: true,
       required: [true, "И-мэйл хаяг заавал оруулна уу"],
     },
+    avatar: { type: String },
     password: {
       type: String,
       required: true,
@@ -25,6 +26,10 @@ const userSchema = new Schema(
     isVerified: {
       type: Boolean,
       default: false,
+    },
+    cv: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

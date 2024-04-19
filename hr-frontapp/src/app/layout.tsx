@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/components/context/auth";
 import { JobProvider } from "@/components/context/job";
+import { UserApplicationProvider } from "@/components/context/userApplication";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <JobProvider>{children}</JobProvider>
+          <UserApplicationProvider>
+            <JobProvider>{children}</JobProvider>
+          </UserApplicationProvider>
         </AuthProvider>
       </body>
     </html>
