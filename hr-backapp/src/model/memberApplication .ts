@@ -14,7 +14,7 @@ const editSubSchema = new Schema(
   { _id: false }
 );
 
-const memberApplicationsSchema = new Schema(
+const ApplicationsSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -60,35 +60,21 @@ const memberApplicationsSchema = new Schema(
         required: true,
       },
     },
-    track: {
-      type: String,
-      required: true,
+    jobPosition: {
+      jobField: {
+        type: String,
+        required: true,
+      },
+      salaryExpectation: {
+        type: String,
+        required: true,
+      },
+      employmentType: {
+        type: String,
+        required: true,
+      },
     },
-    knowledge: {
-      type: String,
-      required: true,
-    },
-    trackReason: {
-      type: String,
-      required: true,
-    },
-    otherTrackInterest: {
-      type: String,
-      required: true,
-    },
-    otherTrackInterestReason: {
-      type: String,
-      required: true,
-    },
-    otherStudentActivites: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
-    submissionTime: {
+    cv: {
       type: String,
       required: true,
     },
@@ -100,6 +86,6 @@ const memberApplicationsSchema = new Schema(
   { timestamps: true, collection: "RecruitmentApplications" }
 );
 
-const memberApplication = model("ApplicationForm", memberApplicationsSchema);
+const memberApplication = model("ApplicationForm", ApplicationsSchema);
 
 export default memberApplication;

@@ -8,12 +8,6 @@ const userSchema = new Schema(
       unique: true,
       required: [true, "И-мэйл хаяг заавал оруулна уу"],
     },
-    name: {
-      type: String,
-    },
-    phone: {
-      type: String,
-    },
     password: {
       type: String,
       required: true,

@@ -6,7 +6,7 @@ const jobSchema = new Schema(
     requirements: {
       purpose: String,
       jobRequirement: String,
-      jobType: String,
+      status: String,
       employmentType: String,
     },
     location: String,
