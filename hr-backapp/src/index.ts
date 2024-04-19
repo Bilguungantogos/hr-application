@@ -11,7 +11,7 @@ import { Response } from "express";
 import { IReq } from "./utils/interface";
 import { authenticate } from "./middleWare/auth";
 import User from "./model/user";
-const fs = require("fs");
+import fs from "fs";
 
 dotenv.config();
 
