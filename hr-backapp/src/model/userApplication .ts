@@ -86,6 +86,6 @@ const ApplicationsSchema = new Schema(
   { timestamps: true, collection: "RecruitmentApplications" }
 );
 
-const memberApplication = model("ApplicationForm", ApplicationsSchema);
+const UserApplication = model("ApplicationForm", ApplicationsSchema);
 
-export default memberApplication;
+export default UserApplication;

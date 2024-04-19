@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { errorHandler } from "./middleWare/errorHandler";
 import auth from "./router/auth";
 import job from "./router/job";
+import jobApplication from "./router/jobApplication";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use("/auth", auth);
 app.use("/job", job);
+app.use("/application", jobApplication);
 app.use(errorHandler);
 
 app.listen(8080, () => {
