@@ -12,7 +12,9 @@ import { IReq } from "./utils/interface";
 import { authenticate } from "./middleWare/auth";
 import User from "./model/user";
 import fs from "fs";
+import AWS from "aws-sdk";
 
+const s3 = new AWS.S3();
 dotenv.config();
 
 const MONGO_URI = process.env.MONGO_URI as string;
@@ -28,11 +30,11 @@ app.use("/job", job);
 app.use("/application", jobApplication);
 app.use(errorHandler);
 
-const uploadDirectory = "./files";
-
-if (!fs.existsSync(uploadDirectory)) {
-  fs.mkdirSync(uploadDirectory);
-}
+AWS.config.update({
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.ACCESS_SECRET_KEY,
+  region: "your_bucket_region",
+});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
