@@ -7,6 +7,15 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { UserApplicationContext } from "@/components/context/userApplication";
 import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
   const { loginuser, token, logout } = useAuth();
@@ -178,13 +187,35 @@ const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
           <div className="">
             <div className="flex flex-col gap-2 mt-4">
               <p className="text-sm">Ажиллахаар төлөвлөж буй чиглэл:</p>
-              <Input
-                id="jobField"
-                name="jobField"
-                value={formik.values.jobField}
-                onChange={formik.handleChange}
-                className="w-[400px]"
-              />
+              <Select
+                defaultValue={formik.values.jobField}
+                onValueChange={(value) => {
+                  formik.setFieldValue("jobField", value);
+                }}
+              >
+                <SelectTrigger className="w-[400px]">
+                  <SelectValue placeholder="Ажиллахаар төлөвлөж буй чиглэл" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="Мэдээллийн технологи/Програм хангамж">
+                      Мэдээллийн технологи/Програм хангамж
+                    </SelectItem>
+                    <SelectItem value="Санхүү/Бүртгэл">
+                      Санхүү/Бүртгэл
+                    </SelectItem>
+                    <SelectItem value="Худалдан авалт">
+                      Худалдан авалт
+                    </SelectItem>
+                    <SelectItem value="Тээвэр ложистик">
+                      Тээвэр ложистик
+                    </SelectItem>
+                    <SelectItem value="Хүний нөөц/захиргаа">
+                      Хүний нөөц/захиргаа
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-sm">Цалингийн хүлээлт:</p>

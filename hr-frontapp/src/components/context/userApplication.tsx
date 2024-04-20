@@ -65,8 +65,8 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
         title: `Анкет амжилттай илгээлээ`,
         duration: 1500,
       });
+      getUserApplication();
       router.push("./");
-      console.log(data, "aaaaa");
     } catch (error) {
       toast({
         variant: "destructive",
