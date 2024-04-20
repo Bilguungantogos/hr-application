@@ -29,6 +29,7 @@ const ApplicationsSchema = new Schema(
       },
     ],
     generalInfo: {
+      aboutMe: { type: String },
       firstName: {
         type: String,
         required: true,
@@ -79,9 +80,9 @@ const ApplicationsSchema = new Schema(
       required: false,
     },
   },
-  { timestamps: true, collection: "RecruitmentApplications" }
+  { timestamps: true }
 );
 
-const UserApplication = model("ApplicationForm", ApplicationsSchema);
+const UserApplication = model("UserApplication", ApplicationsSchema);
 
 export default UserApplication;

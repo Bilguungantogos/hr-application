@@ -29,3 +29,17 @@ export const authenticate = async (
     next();
   }
 };
+
+export const authorize = (...roles: string[]) => {
+  return (req: IReq, res: Response, next: NextFunction) => {
+    try {
+      const { user } = req;
+      if (!roles.includes(user.role)) {
+        res.status(403).send("erhgui baina");
+      }
+      next();
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+};
