@@ -9,7 +9,8 @@ export const createUserApplication = async (
 ) => {
   try {
     console.log(req.body);
-    console.log(req.user);
+    const data = req.body.applicationForm;
+    const jobId = req.body.selectedJobId;
 
     const existApplication = await UserApplication.findOne({
       user: req.user._id,
@@ -17,39 +18,38 @@ export const createUserApplication = async (
     if (!existApplication) {
       const newJob = await UserApplication.create({
         user: req.user._id,
-        job: "66212c72d6ef52cd00521b8f",
+        job: jobId,
         generalInfo: {
-          aboutMe: "minii tuhai bi bol bilguun",
-          firstName: "bilguun",
-          lastName: "bilguun",
-          passportId: "ukfsdkfjfs",
-          birthDate: "20025648",
+          firstName: data.firstName,
+          lastName: data.lastName,
+          passportId: data.passportId,
+          birthDate: data.birthDate,
         },
         contactInfo: {
-          phone: "95959595",
-          email: "admin@gmail.com",
-          address: "bzd ulaanbaatar",
+          phone: data.phone,
+          email: req.user.email,
+          address: data.address,
         },
         jobPosition: {
-          jobField: "tehnologi",
-          salaryExpectation: "15000000",
-          employmentType: "ajiltan",
+          jobField: data.jobField,
+          salaryExpectation: data.salaryExpectation,
+          employmentType: data.employmentType,
         },
       });
       res.status(201).json({ message: "Шинэ anket нэмлээ", newJob });
       return;
     }
 
-    if (existApplication && existApplication.job.includes(req.body.jobId)) {
-      res.status(400).send("Та энэ ажилд анкет илгээсэн байна.");
-      return;
-    }
-    const applyToJob = await UserApplication.updateOne(
-      { user: req.user._id },
-      { $addToSet: { job: "66212caad6ef52cd00521b91" } }
-    );
+    // if (existApplication && existApplication.job.includes(jobId)) {
+    //   res.status(400).send("Та энэ ажилд анкет илгээсэн байна.");
+    //   return;
+    // }
+    // const applyToJob = await UserApplication.updateOne(
+    //   { user: req.user._id },
+    //   { $addToSet: { job: jobId } }
+    // );
 
-    res.status(201).json({ message: "Шинэ ажилд анкет явууллаа", applyToJob });
+    res.status(201).json({ message: "Шинэ ажилд анкет явууллаа" });
   } catch (error) {
     next(error);
   }

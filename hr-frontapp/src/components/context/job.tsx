@@ -21,7 +21,6 @@ interface IJob {
 interface IJobContext {
   getJobs: () => Promise<void>;
   jobs: IJob[];
-  setSelectedJobId: (id: string) => void;
   loading: boolean;
 }
 
@@ -30,7 +29,6 @@ export const JobContext = createContext({} as IJobContext);
 export const JobProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState("");
 
   const [jobs, setJobs] = useState([]);
 
@@ -62,7 +60,6 @@ export const JobProvider = ({ children }: PropsWithChildren) => {
         getJobs,
         jobs,
         loading,
-        setSelectedJobId,
       }}
     >
       {children}

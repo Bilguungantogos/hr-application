@@ -5,9 +5,10 @@ import { Button } from "../ui/button";
 import { JobContext } from "../context/job";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/auth";
+import { UserApplicationContext } from "../context/userApplication";
 
 const JobCard = ({ job }: any) => {
-  const { setSelectedJobId } = useContext(JobContext);
+  const { setSelectedJobId } = useContext(UserApplicationContext);
   const { loginuser } = useAuth();
   const router = useRouter();
   return (

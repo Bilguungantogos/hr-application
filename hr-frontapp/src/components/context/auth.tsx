@@ -21,6 +21,7 @@ interface IAuthContext {
   login: (email: string, password: string) => Promise<void>;
   signup: (password: string, email: string) => Promise<void>;
   logout: () => void;
+  authLogged: () => void;
   loginuser: any;
   token: any;
   setUser: any;
@@ -125,6 +126,27 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     router.push("/");
   };
 
+  const [userApplication, setUserApplication] = useState({});
+  const getUserApplication = async () => {
+    try {
+      setLoading(true);
+      const data = await myAxios.get("/application", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      setUserApplication(data);
+      console.log(data, "userapplication");
+    } catch (error) {
+      //   toast({
+      //     description: `There was a problem with your request. ${error} `,
+      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
+      //   });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     authLogged();
   }, []);
@@ -141,6 +163,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         loading,
         SetLoginSignUpSwitch,
         loginSignUpSwitch,
+        authLogged,
       }}
     >
       {children}

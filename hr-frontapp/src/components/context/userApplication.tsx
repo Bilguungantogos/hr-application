@@ -3,48 +3,82 @@
 import myAxios from "@/components/utils/axios";
 import { useRouter } from "next/navigation";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
+import { useAuth } from "./auth";
 
-interface IApplication {
-  _id: String;
-  location: String;
-  jobTitle: string;
-  field: string;
-  deadline: string;
-  requirements: {
-    purpose: String;
-    employmentType: String;
-    jobRequirement: String;
-    status: String;
-  };
+interface ApplicationForm {
+  firstName: string;
+  lastName: string;
+  passportId: string;
+  birthDate: string;
+  phone: string;
+  email: string;
+  address: string;
+  jobField: string;
+  salaryExpectation: string;
+  employmentType: string;
 }
 
-interface IJobContext {
-  getUserApplication: () => Promise<void>;
-  application: IApplication[];
+interface IUserApplicationContext {
+  allUserApplication: ApplicationForm[];
   loading: boolean;
   file: any;
+  userApplication: any;
   setFile: (e: any) => void;
+  setSelectedJobId: (id: string) => void;
+  createUserApplication: (applicationForm: ApplicationForm) => void;
 }
 
-export const UserApplicationContext = createContext({} as IJobContext);
+export const UserApplicationContext = createContext(
+  {} as IUserApplicationContext
+);
 
 export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
+  const { token, authLogged, loginuser } = useAuth();
+
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState("");
 
   const [file, setFile] = useState<File>();
+  const [userApplication, setUserApplication] = useState({});
+  const [allUserApplication, setAllUserApplication] = useState([]);
 
-  const [application, setApplication] = useState([]);
+  const createUserApplication = async (applicationForm: ApplicationForm) => {
+    try {
+      setLoading(true);
+      const data = await myAxios.post(
+        "/application",
+        { applicationForm, selectedJobId },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      console.log(data, "aaaaa");
+    } catch (error) {
+      //   toast({
+      //     description: `There was a problem with your request. ${error} `,
+      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
+      //   });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getUserApplication = async () => {
     try {
       setLoading(true);
       const {
-        data: { allJobs },
-      } = await myAxios.get("/job");
-      setApplication(allJobs);
-      console.log(allJobs, "aaaaa");
+        data: { userApp },
+      } = await myAxios.get("/application", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      setUserApplication(userApp);
+      console.log(userApp, "userapplication");
     } catch (error) {
       //   toast({
       //     description: `There was a problem with your request. ${error} `,
@@ -57,20 +91,34 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     getUserApplication();
-  }, []);
+  }, [loginuser]);
 
   return (
     <UserApplicationContext.Provider
       value={{
         loading,
-        application,
-        getUserApplication,
-
+        allUserApplication,
+        createUserApplication,
         setFile,
         file,
+        setSelectedJobId,
+        userApplication,
       }}
     >
       {children}
     </UserApplicationContext.Provider>
   );
 };
+
+// const [applicationForm, setApplicationForm] = useState({
+//   firstName: "",
+//   lastName: "",
+//   passportId: "",
+//   birthDate: "",
+//   phone: "",
+//   email: "",
+//   address: "",
+//   jobField: "",
+//   salaryExpectation: "",
+//   employmentType: "",
+// });
