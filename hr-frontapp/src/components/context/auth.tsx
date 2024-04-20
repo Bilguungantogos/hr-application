@@ -10,6 +10,7 @@ import React, {
 
 import myAxios from "@/components/utils/axios";
 import { AxiosError } from "axios";
+import { useToast } from "../ui/use-toast";
 
 interface IUser {
   email: string;
@@ -26,20 +27,25 @@ interface IAuthContext {
   token: any;
   setUser: any;
   loading: boolean;
+  selectedJobId: string;
   loginSignUpSwitch: boolean;
   SetLoginSignUpSwitch: (loginSignUpSwitch: boolean) => void;
+  setSelectedJobId: (id: string) => void;
 }
 
 export const AuthContext = createContext({} as IAuthContext);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
+  const { toast } = useToast();
+
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [loginuser, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState("");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [loginSignUpSwitch, SetLoginSignUpSwitch] = useState(true);
+  const [selectedJobId, setSelectedJobId] = useState("");
 
   const login = async (email: string, password: string) => {
     try {
@@ -48,20 +54,28 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         userPassword: password,
       });
       setUserData(data);
-      router.push("/");
-      //   toast({
-      //     title: "Амжилттай нэвтрэлээ!",
-      //     description: "Enjoy your journey ^.^ 🫰",
-      //     duration: 1500,
-      //   });
+      if (data.user.role == "Admin") {
+        toast({
+          title: "Амжилттай админ эрхээр нэвтрэлээ!",
+          duration: 1500,
+        });
+        router.replace("./admindashboard");
+      } else {
+        router.replace("./");
+        toast({
+          title: "Амжилттай нэвтрэлээ!",
+          duration: 1500,
+        });
+      }
+
       console.log(data, "alsjkdsaljdk");
     } catch (error) {
       if (error instanceof AxiosError) {
-        // toast({
-        //   title: "Aldaa garlaa",
-        //   variant: "destructive",
-        //   description: `Aldaa = ${error.response?.data.message}`,
-        // });
+        toast({
+          title: "Aldaa garlaa",
+          variant: "destructive",
+          description: `Aldaa = ${error.response?.data.message}`,
+        });
         console.log(error);
       }
     }
@@ -74,21 +88,20 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         email: email,
         password: password,
       });
-      //   toast({
-      //     title: "Амжилттай бүртгүүллээ",
-      //     description:
-      //       "Та нэвтрэх хэсгээр нэвтэрч орно уу! Enjoy your journey ^.^ 🫰",
-      //   });
-      console.log("agagagahahhaahhahahahaahhaahahhahaah", data);
-
+      toast({
+        title: "Амжилттай бүртгүүллээ",
+        duration: 1500,
+      });
+      setUser(data.user);
+      setToken(data.token);
+      SetLoginSignUpSwitch(!loginSignUpSwitch);
+      router.push("./");
       setRefresh(!refresh);
     } catch (error) {
-      //   toast({
-      //     variant: "destructive",
-      //     title: "Uh oh! Something went wrong.",
-      //     description: `There was a problem with your request. ${error} `,
-      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
-      //   });
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+      });
     } finally {
       setLoading(false);
     }
@@ -120,31 +133,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     localStorage.removeItem("token");
     setUser(null);
     setToken("");
+    setSelectedJobId("");
     setTimeout(() => {
       setIsLoggingOut(false);
     }, 1000);
     router.push("/");
-  };
-
-  const [userApplication, setUserApplication] = useState({});
-  const getUserApplication = async () => {
-    try {
-      setLoading(true);
-      const data = await myAxios.get("/application", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      setUserApplication(data);
-      console.log(data, "userapplication");
-    } catch (error) {
-      //   toast({
-      //     description: `There was a problem with your request. ${error} `,
-      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
-      //   });
-    } finally {
-      setLoading(false);
-    }
   };
 
   useEffect(() => {
@@ -164,6 +157,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         SetLoginSignUpSwitch,
         loginSignUpSwitch,
         authLogged,
+        setSelectedJobId,
+        selectedJobId,
       }}
     >
       {children}

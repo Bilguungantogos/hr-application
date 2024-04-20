@@ -54,7 +54,6 @@ export const signup = async (
       process.env.JWT_PRIVATE_KEY as string,
       { expiresIn: process.env.JWT_EXPIRE_IN }
     );
-    console.log("usershuuuuu=======", user, "tokenshuuuuu=======", verifyToken);
     res
       .status(201)
       .json({ message: "шинэ хэрэглэгч үүслээ.", user, token: verifyToken });

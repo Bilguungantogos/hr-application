@@ -4,6 +4,7 @@ import myAxios from "@/components/utils/axios";
 import { useRouter } from "next/navigation";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import { useAuth } from "./auth";
+import { useToast } from "../ui/use-toast";
 
 interface ApplicationForm {
   firstName: string;
@@ -19,12 +20,10 @@ interface ApplicationForm {
 }
 
 interface IUserApplicationContext {
-  allUserApplication: ApplicationForm[];
   loading: boolean;
   file: any;
   userApplication: any;
   setFile: (e: any) => void;
-  setSelectedJobId: (id: string) => void;
   createUserApplication: (applicationForm: ApplicationForm) => void;
 }
 
@@ -33,19 +32,25 @@ export const UserApplicationContext = createContext(
 );
 
 export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
-  const { token, authLogged, loginuser } = useAuth();
+  const { token, authLogged, loginuser, selectedJobId } = useAuth();
+  const { toast } = useToast();
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState("");
 
   const [file, setFile] = useState<File>();
   const [userApplication, setUserApplication] = useState({});
-  const [allUserApplication, setAllUserApplication] = useState([]);
 
   const createUserApplication = async (applicationForm: ApplicationForm) => {
     try {
       setLoading(true);
+      if (selectedJobId == "") {
+        return toast({
+          variant: "default",
+          title: `Илгээх ажлыг заавал сонгоно уу`,
+          duration: 1500,
+        });
+      }
       const data = await myAxios.post(
         "/application",
         { applicationForm, selectedJobId },
@@ -55,13 +60,19 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
           },
         }
       );
-
+      toast({
+        variant: "default",
+        title: `Анкет амжилттай илгээлээ`,
+        duration: 1500,
+      });
+      router.push("./");
       console.log(data, "aaaaa");
     } catch (error) {
-      //   toast({
-      //     description: `There was a problem with your request. ${error} `,
-      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
-      //   });
+      toast({
+        variant: "destructive",
+        description: `Анкет илгээхэд алдаа гарлаа.`,
+        duration: 1500,
+      });
     } finally {
       setLoading(false);
     }
@@ -80,10 +91,9 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
       setUserApplication(userApp);
       console.log(userApp, "userapplication");
     } catch (error) {
-      //   toast({
-      //     description: `There was a problem with your request. ${error} `,
-      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
-      //   });
+      // toast({
+      //   description: `Алдаа гарлаа`,
+      // });
     } finally {
       setLoading(false);
     }
@@ -97,11 +107,9 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
     <UserApplicationContext.Provider
       value={{
         loading,
-        allUserApplication,
         createUserApplication,
         setFile,
         file,
-        setSelectedJobId,
         userApplication,
       }}
     >
@@ -109,16 +117,3 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
     </UserApplicationContext.Provider>
   );
 };
-
-// const [applicationForm, setApplicationForm] = useState({
-//   firstName: "",
-//   lastName: "",
-//   passportId: "",
-//   birthDate: "",
-//   phone: "",
-//   email: "",
-//   address: "",
-//   jobField: "",
-//   salaryExpectation: "",
-//   employmentType: "",
-// });

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { UserApplicationContext } from "@/components/context/userApplication";
+import { Button } from "../ui/button";
 
 const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
   const { loginuser, token, logout } = useAuth();
@@ -215,7 +216,7 @@ const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
         </div>
       </div>
       <div className="flex justify-center">
-        <button
+        <Button
           type="submit"
           onClick={() => {
             formik.handleSubmit();
@@ -223,7 +224,7 @@ const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
           className="w-40 "
         >
           Анкет илгээх
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import "./globals.css";
 import { AuthProvider } from "@/components/context/auth";
 import { JobProvider } from "@/components/context/job";
 import { UserApplicationProvider } from "@/components/context/userApplication";
+import { Toaster } from "@/components/ui/toaster";
+import { AdminProvider } from "@/components/context/admininfo";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,10 +20,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <UserApplicationProvider>
-            <JobProvider>{children}</JobProvider>
-          </UserApplicationProvider>
+          <AdminProvider>
+            <UserApplicationProvider>
+              <JobProvider>{children}</JobProvider>
+            </UserApplicationProvider>
+          </AdminProvider>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

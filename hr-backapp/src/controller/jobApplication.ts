@@ -1,6 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { IReq } from "../utils/interface";
 import UserApplication from "../model/userApplication ";
+import User from "../model/user";
 
 export const createUserApplication = async (
   req: IReq,
@@ -40,16 +41,34 @@ export const createUserApplication = async (
       return;
     }
 
-    // if (existApplication && existApplication.job.includes(jobId)) {
-    //   res.status(400).send("Та энэ ажилд анкет илгээсэн байна.");
-    //   return;
-    // }
-    // const applyToJob = await UserApplication.updateOne(
-    //   { user: req.user._id },
-    //   { $addToSet: { job: jobId } }
-    // );
+    const updateApplication = await UserApplication.updateOne(
+      {
+        user: req.user._id,
+      },
+      {
+        $addToSet: { job: jobId },
+        generalInfo: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          passportId: data.passportId,
+          birthDate: data.birthDate,
+        },
+        contactInfo: {
+          phone: data.phone,
+          email: req.user.email,
+          address: data.address,
+        },
+        jobPosition: {
+          jobField: data.jobField,
+          salaryExpectation: data.salaryExpectation,
+          employmentType: data.employmentType,
+        },
+      }
+    );
 
-    res.status(201).json({ message: "Шинэ ажилд анкет явууллаа" });
+    res
+      .status(201)
+      .json({ message: "Шинэ ажилд анкет явууллаа", updateApplication });
   } catch (error) {
     next(error);
   }
@@ -79,6 +98,21 @@ export const getAllUserApplication = async (
     res
       .status(201)
       .json({ message: "Хэрэглэгчийн бүх анкет авлаа.", allUserApp });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUsers = async (
+  req: IReq,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const allUser = await User.find();
+    res
+      .status(201)
+      .json({ message: "Бүх хэрэглэгчийн мэдээлэл авлаа.", allUser });
   } catch (error) {
     next(error);
   }
