@@ -19,7 +19,7 @@ const LoginPage = () => {
           <h1 className="text-slate-100 text-xl">
             Хүний нөөцийн анкет хүлээн авах веб-д тавтай морилно уу?
           </h1>
-          <p>Та анкетаа илгээхийн тулд эхлээд нэвтрэх шаардлатай</p>
+          <p>Та анкетаа илгээхийн тулд эхлээд нэвтрэх шаардлагатай</p>
         </div>
       </div>
       <div className="bg-slate-900 flex-1 flex justify-center items-center">
