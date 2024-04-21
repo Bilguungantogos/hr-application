@@ -56,7 +56,7 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
           Authorization: "Bearer " + token,
         },
       });
-      setUserApplication(data.allUserApp);
+      setAllUserApplication(data.allUserApp);
       console.log(data, "adasdasdsadadsadsaadsdasads");
     } catch (error) {
       // toast({

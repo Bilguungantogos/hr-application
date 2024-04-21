@@ -60,14 +60,22 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           duration: 1500,
         });
         router.replace("./admindashboard");
+        return;
+      }
+      if (selectedJobId !== "") {
+        router.push("./profile");
+        toast({
+          title: "Амжилттай нэвтрэлээ!",
+          duration: 1500,
+        });
+        return;
       } else {
-        router.replace("./");
+        router.push("./");
         toast({
           title: "Амжилттай нэвтрэлээ!",
           duration: 1500,
         });
       }
-
       console.log(data, "alsjkdsaljdk");
     } catch (error) {
       if (error instanceof AxiosError) {

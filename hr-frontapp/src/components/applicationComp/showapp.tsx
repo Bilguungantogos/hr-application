@@ -137,9 +137,13 @@ const ShowApplication = ({ setSwitchToEdit, switchToEdit }: any) => {
             CV, Resume, Cover Letter хавсаргах
           </h1>
           <div className="w-[400px] bg-white px-3 py-2 rounded-md mt-8 h-[40px]">
-            <a href={`${loginuser?.cv}`} className="text-green-600">
-              CV Хавсаргасан байна.
-            </a>
+            {loginuser?.cv == "" ? (
+              <div>CV Хавсаргаагүй байна.</div>
+            ) : (
+              <a href={`${loginuser?.cv}`} className="text-green-600">
+                CV Хавсаргасан байна.
+              </a>
+            )}
           </div>
         </div>
       </div>

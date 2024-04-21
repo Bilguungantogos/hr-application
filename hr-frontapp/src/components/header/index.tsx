@@ -6,7 +6,7 @@ import { useAuth } from "../context/auth";
 const Header = () => {
   const { loginuser } = useAuth();
   return (
-    <div className="w-full py-4 flex justify-around items-center bg-amber-600 mb-10">
+    <div className="w-full py-4 flex justify-around items-center border-b-2 border-b-slate-200">
       <div className="w-40">
         <img src="./logo.png" sizes="full" />
       </div>

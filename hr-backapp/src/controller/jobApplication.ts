@@ -94,7 +94,7 @@ export const getAllUserApplication = async (
   next: NextFunction
 ) => {
   try {
-    const allUserApp = await UserApplication.find();
+    const allUserApp = await UserApplication.find().populate("user");
     res
       .status(201)
       .json({ message: "Хэрэглэгчийн бүх анкет авлаа.", allUserApp });

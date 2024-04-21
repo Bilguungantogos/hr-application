@@ -5,7 +5,7 @@ import { AdminContext } from "../context/admininfo";
 import { v4 as uuidv4 } from "uuid";
 
 const AllUserItem = () => {
-  const { allUserApplication, allUserInfo } = useContext(AdminContext);
+  const { allUserInfo } = useContext(AdminContext);
 
   return (
     <div className="rounded-sm border border-stroke bg-white">
