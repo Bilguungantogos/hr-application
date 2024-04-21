@@ -4,7 +4,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="bg-slate-100 h-screen">
+    <div className=" h-full">
       <UserApplicationPage />
     </div>
   );

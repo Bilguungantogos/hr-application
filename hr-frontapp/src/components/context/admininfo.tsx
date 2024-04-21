@@ -11,6 +11,7 @@ interface IAdminContext {
   loading: boolean;
   file: any;
   filterValues: any;
+  filteredAllUserApplication: any;
   userApplication: any;
   setFile: (e: any) => void;
   allUserInfo: any[];
@@ -30,6 +31,9 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
   const [file, setFile] = useState<File>();
   const [userApplication, setUserApplication] = useState({});
   const [allUserApplication, setAllUserApplication] = useState([]);
+  const [filteredAllUserApplication, setFilteredAllUserApplication] = useState(
+    []
+  );
   const [allUserInfo, setAllUserInfo] = useState([]);
   const [filterValues, setFilterValues] = useState({
     jobField: "",
@@ -38,21 +42,33 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
   });
 
   const handleFilter = () => {
+    let filteredApplications = [...allUserApplication];
+
     if (filterValues.jobField !== "") {
-      const filteredApplications = allUserApplication.filter(
-        (userApp: any) => userApp.jobPosition.jobField === filterValues.jobField
+      filteredApplications = filteredApplications.filter(
+        (userApp: any) => userApp.jobPosition.jobField == filterValues.jobField
       );
-      if (filterValues.salaryExpectation === "minToMax") {
-        filteredApplications.sort((a: any, b: any) => {
-          return a.jobPosition.salary - b.jobPosition.salary;
-        });
-      } else if (filterValues.salaryExpectation === "maxToMin") {
-        filteredApplications.sort((a: any, b: any) => {
-          return b.jobPosition.salary - a.jobPosition.salary;
-        });
-      }
-      console.log(filteredApplications);
     }
+
+    if (filterValues.cv === "Хавсаргасан") {
+      filteredApplications = filteredApplications.filter(
+        (userApp: any) => userApp.user.cv !== ""
+      );
+    }
+
+    if (filterValues.salaryExpectation === "minToMax") {
+      filteredApplications.sort(
+        (a: any, b: any) =>
+          a.jobPosition.salaryExpectation - b.jobPosition.salaryExpectation
+      );
+    } else if (filterValues.salaryExpectation === "maxToMin") {
+      filteredApplications.sort(
+        (a: any, b: any) =>
+          b.jobPosition.salaryExpectation - a.jobPosition.salaryExpectation
+      );
+    }
+
+    setFilteredAllUserApplication(filteredApplications);
   };
 
   const getAllUsers = async () => {
@@ -83,6 +99,7 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
         },
       });
       setAllUserApplication(data.allUserApp);
+      setFilteredAllUserApplication(data.allUserApp);
       console.log(data, "adasdasdsadadsadsaadsdasads");
     } catch (error) {
       toast({
@@ -112,6 +129,7 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
         setFilterValues,
         filterValues,
         handleFilter,
+        filteredAllUserApplication,
       }}
     >
       {children}

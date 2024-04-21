@@ -56,7 +56,7 @@ app.post(
   authenticate,
   async (req: IReq, res: Response) => {
     try {
-      console.log(req.file);
+      console.log(req.file, "reqfile");
       const uploadedCV = await User.updateOne(
         { _id: req.user._id },
         {

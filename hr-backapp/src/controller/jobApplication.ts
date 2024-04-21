@@ -71,6 +71,47 @@ export const createUserApplication = async (
       .json({ message: "Шинэ ажилд анкет явууллаа", updateApplication });
   } catch (error) {
     next(error);
+    console.log(error);
+  }
+};
+
+export const updateUserApplication = async (
+  req: IReq,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const data = req.body.applicationForm;
+    const updateApplication = await UserApplication.updateOne(
+      {
+        user: req.user._id,
+      },
+      {
+        generalInfo: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          passportId: data.passportId,
+          birthDate: data.birthDate,
+        },
+        contactInfo: {
+          phone: data.phone,
+          email: req.user.email,
+          address: data.address,
+        },
+        jobPosition: {
+          jobField: data.jobField,
+          salaryExpectation: data.salaryExpectation,
+          employmentType: data.employmentType,
+        },
+      }
+    );
+
+    res
+      .status(201)
+      .json({ message: "Шинэ ажилд анкет явууллаа", updateApplication });
+  } catch (error) {
+    next(error);
+    console.log(error);
   }
 };
 
@@ -80,7 +121,9 @@ export const getUserApplication = async (
   next: NextFunction
 ) => {
   try {
-    const userApp = await UserApplication.findOne({ user: req.user._id });
+    const userApp = await UserApplication.findOne({
+      user: req.user._id,
+    }).populate("user");
 
     res.status(201).json({ message: "Хэрэглэгчийн анкет авлаа.", userApp });
   } catch (error) {

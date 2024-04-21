@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { FilterUnitedComp } from "./searchSelects";
 
 const AllUserApplicationComp = () => {
-  const { allUserApplication } = useContext(AdminContext);
+  const { filteredAllUserApplication } = useContext(AdminContext);
   return (
     <div className="rounded-sm border border-stroke bg-white">
       <div className="flex items-center justify-between py-6 px-4 md:px-6 xl:px-7.5">
@@ -32,7 +32,7 @@ const AllUserApplicationComp = () => {
         </div>
       </div>
 
-      {allUserApplication?.map((anket) => (
+      {filteredAllUserApplication?.map((anket: any) => (
         <div
           className="grid grid-cols-6 border-t border-stroke py-6 px-8 dark:border-strokedark sm:grid-cols-8 md:px-6 "
           key={uuidv4()}

@@ -1,9 +1,9 @@
 import { AdminDashboard } from "@/components/app/adminDashboard";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Page = () => {
   return (
-    <div className="bg-slate-100 h-full">
+    <div className=" h-full">
       <AdminDashboard />
     </div>
   );

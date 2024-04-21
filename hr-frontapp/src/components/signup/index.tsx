@@ -25,56 +25,68 @@ const SignUp = () => {
         <CgLogIn size={80} className="text-white border p-2 rounded-[20px]" />
         <h1 className="text-white text-lg">Бүртгүүлэх</h1>
       </div>
-      <div className="grid gap-4 py-4">
-        <Input
-          id="email"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          placeholder="Е-майл хаяг"
-          className="bg-slate-400 border-none"
-        />
-        <h1 className="text-white"> {formik.errors.email}</h1>
-        <Input
-          id="current_password"
-          name="password"
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          className="bg-slate-400 border-none"
-          placeholder="Нууц үг"
-        />
-        <h1 className="text-white"> {formik.errors.password}</h1>
-        <Input
-          id="current_rePassword"
-          name="rePassword"
-          type="password"
-          value={formik.values.rePassword}
-          onChange={formik.handleChange}
-          className="bg-slate-400 border-none"
-          placeholder="Нууц үг"
-        />
-        <h1 className="text-white"> {formik.errors.rePassword}</h1>
-        <a href="/forgotpassword" className="text-white text-end text-[13px]">
-          Нууц үг мартсан
-        </a>
+      <div className="grid gap-8 py-4">
+        <div>
+          <Input
+            id="email"
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            placeholder="Е-майл хаяг"
+            className="bg-slate-400 border-none"
+          />
+          <h1 className="text-red-500 text-[12px] absolute">
+            {" "}
+            {formik.errors.email}
+          </h1>
+        </div>
+        <div>
+          <Input
+            id="current_password"
+            name="password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            className="bg-slate-400 border-none"
+            placeholder="Нууц үг"
+          />
+          <p className="text-red-500 text-[12px] absolute">
+            {formik.errors.password}
+          </p>
+        </div>
+        <div>
+          <Input
+            id="current_rePassword"
+            name="rePassword"
+            type="password"
+            value={formik.values.rePassword}
+            onChange={formik.handleChange}
+            className="bg-slate-400 border-none"
+            placeholder="Нууц үг"
+          />
+          <p className="text-red-500 text-[12px] absolute">
+            {" "}
+            {formik.errors.rePassword}
+          </p>
+        </div>
       </div>
       <Button
         onClick={() => {
           formik.handleSubmit();
         }}
-        className="w-full py-4 bg-[#1f4682]"
+        className="w-full py-4 bg-[#1f4682] mt-4"
       >
         Бүртгүүлэх
       </Button>
       <button
-        className="text-white mt-4"
+        className="text-white mt-4 w-full"
         onClick={() => {
           SetLoginSignUpSwitch(!loginSignUpSwitch);
         }}
       >
         Нэвтрэх
       </button>
+      
     </div>
   );
 };

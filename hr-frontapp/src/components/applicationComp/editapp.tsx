@@ -18,18 +18,19 @@ import {
 } from "@/components/ui/select";
 
 const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
-  const { loginuser, token, logout } = useAuth();
-  const { createUserApplication, userApplication } = useContext(
-    UserApplicationContext
-  );
+  const { loginuser } = useAuth();
+  const {
+    createUserApplication,
+    userApplication,
+    loading,
+    setFile,
+    updateUserApplication,
+  } = useContext(UserApplicationContext);
 
   const formik = useFormik({
     onSubmit: (values) => {
       console.log("Submitted values:", values);
       createUserApplication(values);
-      if (formik.isValid) {
-        setSwitchToEdit(!switchToEdit);
-      }
     },
     initialValues: {
       firstName: userApplication?.generalInfo?.firstName,
@@ -243,18 +244,37 @@ const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
           <h1 className="rounded-[32px] bg-white p-2  text-center font-bold">
             CV, Resume, Cover Letter хавсаргах
           </h1>
-          <Input id="file" type="file" className="w-[400px] mt-8" />
+          <Input
+            id="file"
+            type="file"
+            name="file"
+            className="w-[400px] mt-8"
+            onChange={(e: any) => {
+              setFile(e.target.files[0]);
+            }}
+          />
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-4">
         <Button
           type="submit"
+          disabled={loading}
           onClick={() => {
             formik.handleSubmit();
           }}
           className="w-40 "
         >
           Анкет илгээх
+        </Button>
+        <Button
+          type="submit"
+          disabled={loading}
+          onClick={() => {
+            updateUserApplication(formik.values);
+          }}
+          className="w-40 bg-orange-500"
+        >
+          Анкет хадгалах
         </Button>
       </div>
     </div>

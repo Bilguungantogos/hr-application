@@ -24,7 +24,9 @@ interface IUserApplicationContext {
   file: any;
   userApplication: any;
   setFile: (e: any) => void;
+  setUserApplication: (e: any) => void;
   createUserApplication: (applicationForm: ApplicationForm) => void;
+  updateUserApplication: (applicationForm: ApplicationForm) => void;
 }
 
 export const UserApplicationContext = createContext(
@@ -38,7 +40,7 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<any>(null);
   const [userApplication, setUserApplication] = useState({});
 
   const createUserApplication = async (applicationForm: ApplicationForm) => {
@@ -51,6 +53,7 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
           duration: 1500,
         });
       }
+
       const data = await myAxios.post(
         "/application",
         { applicationForm, selectedJobId },
@@ -60,6 +63,16 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
           },
         }
       );
+      if (file !== null) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const datacv = await myAxios.post("/upload-files", formData, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+      }
+
       toast({
         variant: "default",
         title: `Анкет амжилттай илгээлээ`,
@@ -71,6 +84,46 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
       toast({
         variant: "destructive",
         description: `Анкет илгээхэд алдаа гарлаа.`,
+        duration: 1500,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateUserApplication = async (applicationForm: ApplicationForm) => {
+    try {
+      setLoading(true);
+
+      const data = await myAxios.put(
+        "/application",
+        { applicationForm },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (file !== null) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const datacv = await myAxios.post("/upload-files", formData, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+      }
+      toast({
+        variant: "default",
+        title: `Анкет амжилттай хадгалагдлаа`,
+        duration: 1500,
+      });
+      getUserApplication();
+      router.push("./");
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: `Анкет өөрчилхөд алдаа гарлаа.`,
         duration: 1500,
       });
     } finally {
@@ -111,6 +164,8 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
         setFile,
         file,
         userApplication,
+        setUserApplication,
+        updateUserApplication,
       }}
     >
       {children}

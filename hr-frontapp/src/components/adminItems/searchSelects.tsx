@@ -42,6 +42,7 @@ export function SearchByJobField() {
             Мэдээллийн технологи/Програм хангамж
           </SelectItem>
           <SelectItem value="Худалдан авалт">Худалдан авалт</SelectItem>
+          <SelectItem value="Санхүү/Бүртгэл">Санхүү/Бүртгэл</SelectItem>
           <SelectItem value="Тээвэр ложистик">Тээвэр ложистик</SelectItem>
           <SelectItem value="Хүний нөөц/захиргаа">
             Хүний нөөц/захиргаа

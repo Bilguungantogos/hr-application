@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { useAuth } from "../context/auth";
 
 const ShowApplication = ({ setSwitchToEdit, switchToEdit }: any) => {
-  const { userApplication, createUserApplication } = useContext(
+  const { userApplication, createUserApplication, loading } = useContext(
     UserApplicationContext
   );
   const { loginuser } = useAuth();
@@ -137,10 +137,13 @@ const ShowApplication = ({ setSwitchToEdit, switchToEdit }: any) => {
             CV, Resume, Cover Letter хавсаргах
           </h1>
           <div className="w-[400px] bg-white px-3 py-2 rounded-md mt-8 h-[40px]">
-            {loginuser?.cv == "" ? (
+            {userApplication?.user?.cv == "" ? (
               <div>CV Хавсаргаагүй байна.</div>
             ) : (
-              <a href={`${loginuser?.cv}`} className="text-green-600">
+              <a
+                href={`${userApplication?.user?.cv}`}
+                className="text-green-600"
+              >
                 CV Хавсаргасан байна.
               </a>
             )}
@@ -149,6 +152,7 @@ const ShowApplication = ({ setSwitchToEdit, switchToEdit }: any) => {
       </div>
       <div className="flex justify-center gap-4">
         <Button
+          disabled={loading}
           onClick={() => {
             createUserApplication(applicationForm);
           }}

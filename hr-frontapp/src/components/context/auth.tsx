@@ -100,10 +100,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         title: "Амжилттай бүртгүүллээ",
         duration: 1500,
       });
-      setUser(data.user);
-      setToken(data.token);
       SetLoginSignUpSwitch(!loginSignUpSwitch);
-      router.push("./");
       setRefresh(!refresh);
     } catch (error) {
       toast({
