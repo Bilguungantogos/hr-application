@@ -44,6 +44,7 @@ const Login = () => {
           <Input
             id="current_password"
             name="password"
+            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             className="bg-slate-400 border-none"
