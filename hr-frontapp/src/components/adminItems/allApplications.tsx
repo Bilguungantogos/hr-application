@@ -18,7 +18,6 @@ const AllUserApplicationComp = () => {
           <p className="font-medium">И-мэйл</p>
         </div>
         <div className="col-span-2 hidden items-center sm:flex">
-          dashboard
           <p className="font-medium">Нэр</p>
         </div>
         <div className="col-span-2 flex items-center text-center">
