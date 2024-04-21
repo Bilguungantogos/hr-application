@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CgLogIn } from "react-icons/cg";
 
 const Login = () => {
-  const { loginuser, login, SetLoginSignUpSwitch, loginSignUpSwitch } =
+  const { loginuser, login, SetLoginSignUpSwitch, loginSignUpSwitch, loading } =
     useAuth();
 
   const formik = useFormik({
@@ -55,6 +55,7 @@ const Login = () => {
         </div>
       </div>
       <Button
+        disabled={loading}
         onClick={() => {
           formik.handleSubmit();
         }}
