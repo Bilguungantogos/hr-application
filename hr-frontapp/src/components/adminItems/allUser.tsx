@@ -37,12 +37,14 @@ const AllUserItem = () => {
         >
           <div className="col-span-2 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row items-center text-black">
-              <div className="">{user.email}</div>
+              <div className="">{user?.email}</div>
               <p className="text-sm text-black"></p>
             </div>
           </div>
           <div className="col-span-2 hidden items-center sm:flex">
-            <p className="text-sm text-black ">{user.role ? user.role : ""}</p>
+            <p className="text-sm text-black ">
+              {user?.role ? user?.role : ""}
+            </p>
           </div>
           <div className="col-span-2 flex items-center">
             <p className="text-sm text-black ">
@@ -52,7 +54,7 @@ const AllUserItem = () => {
 
           <div className="col-span-2 flex items-center gap-8 text-black">
             <p className="text-sm text-meta-3">
-              {formatTimestamp(user.createdAt)}
+              {formatTimestamp(user?.createdAt)}
             </p>
           </div>
         </div>

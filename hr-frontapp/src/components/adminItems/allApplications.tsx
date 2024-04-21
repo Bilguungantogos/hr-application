@@ -19,6 +19,7 @@ const AllUserApplicationComp = () => {
           <p className="font-medium">И-мэйл</p>
         </div>
         <div className="col-span-2 hidden items-center sm:flex">
+          dashboard
           <p className="font-medium">Нэр</p>
         </div>
         <div className="col-span-2 flex items-center text-center">
@@ -39,29 +40,33 @@ const AllUserApplicationComp = () => {
         >
           <div className="col-span-2 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row items-center text-black">
-              <div className="">{anket.user.email}</div>
+              <div className="">{anket?.user?.email}</div>
               <p className="text-sm text-black"></p>
             </div>
           </div>
           <div className="col-span-2 hidden items-center sm:flex">
             <p className="text-sm text-black ">
-              {anket.generalInfo.lastName + " " + anket.generalInfo.firstName}
+              {anket?.generalInfo?.lastName +
+                " " +
+                anket?.generalInfo?.firstName}
             </p>
           </div>
           <div className="col-span-2 flex items-center">
-            <p className="text-sm text-black ">{anket.jobPosition.jobField}</p>
+            <p className="text-sm text-black ">
+              {anket?.jobPosition?.jobField}
+            </p>
           </div>
 
           <div className="col-span-1 flex items-center gap-8 text-black">
             <p className="text-sm text-meta-3">
-              {anket.jobPosition.salaryExpectation}
+              {anket?.jobPosition?.salaryExpectation}
             </p>
           </div>
           <div className="col-span-1 flex items-center gap-8 text-black">
-            {anket.user.cv == "" ? (
+            {anket?.user?.cv == "" ? (
               <p>CV Хавсаргаагүй</p>
             ) : (
-              <a href={`${anket.user.cv}`} className="text-green-600">
+              <a href={`${anket?.user?.cv}`} className="text-green-600">
                 CV Хавсаргасан
               </a>
             )}
