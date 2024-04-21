@@ -31,16 +31,10 @@ export const AdminDashboard = (props: Props) => {
             </Button>
           </div>
           <div className="flex justify-center gap-40">
-            <a
-              href="./admindashboard/userapplication"
-              className="font-bold text-lg "
-            >
+            <a href="./admin/userapplication" className="font-bold text-lg ">
               Анкет
             </a>
-            <a
-              href="./admindashboard"
-              className="font-bold text-lg text-green-600"
-            >
+            <a href="./admin" className="font-bold text-lg text-green-600">
               Хэрэглэгч
             </a>
           </div>

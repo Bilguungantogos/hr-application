@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           title: "Амжилттай админ эрхээр нэвтрэлээ!",
           duration: 1500,
         });
-        router.replace("/admindashboard");
+        router.push("/admin");
         return;
       }
       if (selectedJobId !== "") {

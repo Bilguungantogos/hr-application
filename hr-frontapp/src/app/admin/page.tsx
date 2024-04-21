@@ -1,11 +1,10 @@
 import { AdminDashboard } from "@/components/app/adminDashboard";
-import { UserApplicationPage } from "@/components/app/userapplication";
 import React from "react";
 
 const Page = () => {
   return (
     <div className=" h-full">
-      <UserApplicationPage />
+      <AdminDashboard />
     </div>
   );
 };

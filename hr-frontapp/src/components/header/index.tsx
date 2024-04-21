@@ -21,7 +21,7 @@ const Header = () => {
           Миний анкет
         </a>
         {loginuser?.role == "Admin" ? (
-          <a className="font-bold" href="/admindashboard">
+          <a className="font-bold" href="/admin">
             Админ дашбоард
           </a>
         ) : (

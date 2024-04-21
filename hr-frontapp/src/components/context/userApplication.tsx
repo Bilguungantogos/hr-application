@@ -119,7 +119,7 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
         duration: 1500,
       });
       getUserApplication();
-      router.push("./");
+      router.push("/");
     } catch (error) {
       toast({
         variant: "destructive",
