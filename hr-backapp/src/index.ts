@@ -1,4 +1,4 @@
-import express, { Application, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import { connectDB } from "./config/db";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -8,7 +8,6 @@ import job from "./router/job";
 import jobApplication from "./router/jobApplication";
 import multer from "multer";
 import multerS3 from "multer-s3";
-import AWS from "aws-sdk";
 import { authenticate } from "./middleWare/auth";
 import { IReq } from "./utils/interface";
 import User from "./model/user";
@@ -28,6 +27,9 @@ app.use("/auth", auth);
 app.use("/job", job);
 app.use("/application", jobApplication);
 app.use(errorHandler);
+app.get("/", (req: Request, res: Response) => {
+  res.send("<h1>HR App</h1>");
+});
 
 const s3Config = new S3Client({
   region: "eu-north-1",
@@ -56,7 +58,6 @@ app.post(
   authenticate,
   async (req: IReq, res: Response) => {
     try {
-      console.log(req.file, "reqfile");
       const uploadedCV = await User.updateOne(
         { _id: req.user._id },
         {
