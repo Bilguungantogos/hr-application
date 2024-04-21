@@ -248,6 +248,7 @@ const EditApplicationComponent = ({ setSwitchToEdit, switchToEdit }: any) => {
             id="file"
             type="file"
             name="file"
+            accept=".pdf"
             className="w-[400px] mt-8"
             onChange={(e: any) => {
               setFile(e.target.files[0]);

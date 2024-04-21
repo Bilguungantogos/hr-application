@@ -3,7 +3,6 @@
 import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AdminContext } from "../context/admininfo";
-import { Button } from "../ui/button";
 import { FilterUnitedComp } from "./searchSelects";
 
 const AllUserApplicationComp = () => {
