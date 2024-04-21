@@ -63,7 +63,7 @@ app.post(
           cv: (req.file as CustomFile)?.location,
         }
       );
-      res.send({ uploadedCV, message: "uploaded" });
+      res.send({ uploadedCV, message: "uploaded cv" });
     } catch (error) {
       res.send({ error, message: "error" });
     }
