@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const { toast } = useToast();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [loginuser, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState("");
