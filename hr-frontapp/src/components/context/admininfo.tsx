@@ -80,7 +80,6 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
         },
       });
       setAllUserInfo(data.allUser);
-      console.log(data, "adasdasdsadadsadsaadsdasads");
     } catch (error) {
       // toast({
       //   description: `Алдаа гарлаа`,
@@ -100,7 +99,6 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
       });
       setAllUserApplication(data.allUserApp);
       setFilteredAllUserApplication(data.allUserApp);
-      console.log(data, "adasdasdsadadsadsaadsdasads");
     } catch (error) {
       toast({
         description: `Алдаа гарлаа`,

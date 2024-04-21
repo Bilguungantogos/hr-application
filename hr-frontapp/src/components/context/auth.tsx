@@ -76,7 +76,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           duration: 1500,
         });
       }
-      console.log(data, "alsjkdsaljdk");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast({
@@ -127,7 +126,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       if (user && token) {
         setUser(JSON.parse(user));
         setToken(JSON.parse(token));
-        console.log(user);
       }
     }
   };

@@ -39,7 +39,6 @@ export const JobProvider = ({ children }: PropsWithChildren) => {
         data: { allJobs },
       } = await myAxios.get("/job");
       setJobs(allJobs);
-      console.log(allJobs, "aaaaa");
     } catch (error) {
       //   toast({
       //     description: `There was a problem with your request. ${error} `,

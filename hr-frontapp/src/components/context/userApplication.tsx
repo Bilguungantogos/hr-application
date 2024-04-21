@@ -142,7 +142,6 @@ export const UserApplicationProvider = ({ children }: PropsWithChildren) => {
         },
       });
       setUserApplication(userApp);
-      console.log(userApp, "userapplication");
     } catch (error) {
       // toast({
       //   description: `Алдаа гарлаа`,
