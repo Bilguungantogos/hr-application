@@ -10,9 +10,12 @@ interface IAdminContext {
   allUserApplication: any[];
   loading: boolean;
   file: any;
+  filterValues: any;
   userApplication: any;
   setFile: (e: any) => void;
   allUserInfo: any[];
+  setFilterValues: (value: any) => void;
+  handleFilter: () => void;
 }
 
 export const AdminContext = createContext({} as IAdminContext);
@@ -28,6 +31,29 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
   const [userApplication, setUserApplication] = useState({});
   const [allUserApplication, setAllUserApplication] = useState([]);
   const [allUserInfo, setAllUserInfo] = useState([]);
+  const [filterValues, setFilterValues] = useState({
+    jobField: "",
+    salaryExpectation: "",
+    cv: "",
+  });
+
+  const handleFilter = () => {
+    if (filterValues.jobField !== "") {
+      const filteredApplications = allUserApplication.filter(
+        (userApp: any) => userApp.jobPosition.jobField === filterValues.jobField
+      );
+      if (filterValues.salaryExpectation === "minToMax") {
+        filteredApplications.sort((a: any, b: any) => {
+          return a.jobPosition.salary - b.jobPosition.salary;
+        });
+      } else if (filterValues.salaryExpectation === "maxToMin") {
+        filteredApplications.sort((a: any, b: any) => {
+          return b.jobPosition.salary - a.jobPosition.salary;
+        });
+      }
+      console.log(filteredApplications);
+    }
+  };
 
   const getAllUsers = async () => {
     try {
@@ -59,9 +85,9 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
       setAllUserApplication(data.allUserApp);
       console.log(data, "adasdasdsadadsadsaadsdasads");
     } catch (error) {
-      // toast({
-      //   description: `Алдаа гарлаа`,
-      // });
+      toast({
+        description: `Алдаа гарлаа`,
+      });
     } finally {
       setLoading(false);
     }
@@ -83,6 +109,9 @@ export const AdminProvider = ({ children }: PropsWithChildren) => {
         file,
         allUserInfo,
         userApplication,
+        setFilterValues,
+        filterValues,
+        handleFilter,
       }}
     >
       {children}

@@ -4,13 +4,15 @@ import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AdminContext } from "../context/admininfo";
 import { Button } from "../ui/button";
+import { FilterUnitedComp } from "./searchSelects";
 
 const AllUserApplicationComp = () => {
   const { allUserApplication } = useContext(AdminContext);
   return (
     <div className="rounded-sm border border-stroke bg-white">
-      <div className="py-6 px-4 md:px-6 xl:px-7.5">
+      <div className="flex items-center justify-between py-6 px-4 md:px-6 xl:px-7.5">
         <h4 className="text-xl font-semibold text-black">Анкетын жагсаалт</h4>
+        <FilterUnitedComp />
       </div>
       <div className="grid grid-cols-6 border-t border-stroke py-6 px-8 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 text-black">
         <div className="col-span-2 flex items-center">
@@ -57,10 +59,10 @@ const AllUserApplicationComp = () => {
           </div>
           <div className="col-span-1 flex items-center gap-8 text-black">
             {anket.user.cv == "" ? (
-              <p>CV Хавсаргаагүй байна.</p>
+              <p>CV Хавсаргаагүй</p>
             ) : (
               <a href={`${anket.user.cv}`} className="text-green-600">
-                CV Хавсаргасан байна.
+                CV Хавсаргасан
               </a>
             )}
           </div>
