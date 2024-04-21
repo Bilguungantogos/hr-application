@@ -44,7 +44,8 @@ const JobCard = ({ job }: any) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-      <div className="flex justify-end">
+      <div className="flex justify-end w-full bg-slate-300 rounded-[16px]">
+        <h1 className=" w-full"></h1>
         <Button
           className="rounded-[14px] bg-slate-700"
           onClick={() => {
