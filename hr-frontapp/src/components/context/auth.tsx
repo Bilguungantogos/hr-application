@@ -60,11 +60,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           title: "Амжилттай админ эрхээр нэвтрэлээ!",
           duration: 1500,
         });
-        router.replace("./admindashboard");
+        router.replace("/admindashboard");
         return;
       }
       if (selectedJobId !== "") {
-        router.push("./profile");
+        router.push("/profile");
         toast({
           title: "Амжилттай нэвтрэлээ!",
           duration: 1500,
